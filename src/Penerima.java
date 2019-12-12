@@ -55,9 +55,9 @@ public class Penerima {
             iploc.setLongitude(parts2[1]);
             iploc.setLatitude(parts3[1]);
             
-            System.out.println("IP address (Public) : "+temp[1]);
-            System.out.println("Country : "+temp[3]);
-            System.out.println("City : "+temp[11]);
+            System.out.println("Alamat IP (Publik) : "+temp[1]);
+            System.out.println("Negara : "+temp[3]);
+            System.out.println("Kota : "+temp[11]);
             System.out.println("Longitude : "+parts2[1]);
             System.out.println("Latitude : "+parts3[1]);
             System.out.println();
@@ -71,7 +71,7 @@ public class Penerima {
     public static void main(String[] args) throws IOException, ParseException, InterruptedException {
         //Address
         String multiCastAddress = "224.0.0.1";
-        final int multiCastPort = 52684;
+        final int multiCastPort = 5268;
         final int bufferSize = 1024 * 4; //Maximum size of transfer object
         String my_ip;
         int nexthop, nextid=0;
@@ -87,8 +87,8 @@ public class Penerima {
         my_ip = InetAddress.getLocalHost().getHostAddress();
  
         //Create Socket
-        System.out.println("Create socket on address " + multiCastAddress + " and port " + multiCastPort + ".");
-        System.out.println("My IP is : " + my_ip);
+        System.out.println("Membuat socket pada " + multiCastAddress + " dengan port " + multiCastPort + ".");
+        System.out.println("Alamat IP saya: " + my_ip);
         
         InetAddress group = InetAddress.getByName(multiCastAddress);
         MulticastSocket s = new MulticastSocket(multiCastPort);
@@ -120,7 +120,7 @@ public class Penerima {
         double latitude1a, longitude1a, latitude1b, longitude1b;
         //Receive data
         while (true) {
-            System.out.println("Wating for datagram to be received...");
+            System.out.println("Menunggu datagram untuk diterima...");
  
             //Create buffer
             byte[] buffer = new byte[bufferSize];
@@ -152,17 +152,17 @@ public class Penerima {
                         double distance = loc1.distanceTo(loc2);
                         
                         if(distance > 5000){
-                            System.out.println("Message could not be sent because of limited area...\n");
+                            System.out.println("Pesan tidak dapat dikirim. Area terbatas...\n");
                             break;
                         }
                         
                         else if(date1.compareTo(date2) > 0){
-                            System.out.println("Message could not be sent because message is expired...\n");
+                            System.out.println("Pesan tidak dapat dikirim. Pesan kadaluwarsa...\n");
                             break;
                         }
 
                         else if(message.getHop() > MAXTTL){
-                            System.out.println("Message could not be sent because hop is limited...\n");
+                            System.out.println("Pesan tidak dapat dikirim. Hop terbatas...\n");
                             break;
                         }
                         
@@ -182,7 +182,7 @@ public class Penerima {
                     else if(_MessageOnly[i].equals(message.getMessage())){
                         nexthop = message.getHop() + 1;
                         nextid = message.getId() + 1;
-                        System.out.println("Message is already exist!");
+                        System.out.println("Pesan telah ada!");
                         
                         Thread.sleep(2000);
                             
@@ -214,32 +214,32 @@ public class Penerima {
                     
                     //Check if distance so far
                     if(distance > 5000){
-                        System.out.println("Message could not be sent because of limited area...\n");
+                        System.out.println("Pesan tidak dapat dikirim. Area terbatas...\n");
                         arr_msg.remove(a);
                     }
                     //Check if message is expired
                     else if(date1.compareTo(date2) > 0){
-                        System.out.println("Message could not be sent because message is expired...\n");
+                        System.out.println("Pesan tidak dapat dikirim. Pesan kadaluwarsa...\n");
                         arr_msg.remove(a);
                     }
 
                     else if(message.getHop() > MAXTTL){
-                        System.out.println("Message could not be sent because hop is limited...\n");
+                        System.out.println("Pesan tidak dapat dikirim. Hop terbatas...\n");
                         arr_msg.remove(a);
                         break;
                     }
 
                     else if(my_ip.equals(message.getDestination())){
                         System.out.println("Pesan sampai");
-                        System.out.println("Message object received : "+message);
+                        System.out.println("Objek pesan yang diterima -> "+message);
                         System.out.println("ID : "+message.getId());
-                        System.out.println("Message : "+message.getMessage());
-                        System.out.println("Source : "+message.getSource());
-                        System.out.println("Destination : "+message.getDestination());
+                        System.out.println("Pesan : "+message.getMessage());
+                        System.out.println("Asal : "+message.getSource());
+                        System.out.println("Tujuan : "+message.getDestination());
                         System.out.println("Hop : "+message.getHop());
                     }
                     else{
-                        System.out.println("Send Message : "+pesan);
+                        System.out.println("Kirim pesan : "+pesan);
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         ObjectOutputStream os = new ObjectOutputStream(baos);
                         
@@ -257,7 +257,7 @@ public class Penerima {
                 
             } 
             catch(SocketTimeoutException e){
-                    System.out.println("Timeout reached!!! " + e);
+                    System.out.println("Waktu telah habis. " + e);
             }
             catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();

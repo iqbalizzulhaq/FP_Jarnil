@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 public class Pengirim {
     public static void main(String[] args) throws IOException {
  
-        String multiCastAddress = "224.1.10.2";
+        String multiCastAddress = "224.0.0.1";
         final int multiCastPort = 5268;
         String my_ip;
         String pesan="", tujuan="", flag="", temp1;
@@ -26,7 +26,7 @@ public class Pengirim {
             my_ip = InetAddress.getLocalHost().getHostAddress();
         
             //Create Socket
-            System.out.println("Create socket on address " + multiCastAddress + " and port " + multiCastPort + ".");
+            System.out.println("Membuat socket pada " + multiCastAddress + " dengan port " + multiCastPort + ".");
             InetAddress group = InetAddress.getByName(multiCastAddress);
             MulticastSocket s = new MulticastSocket(multiCastPort);
             s.joinGroup(group);
@@ -35,11 +35,11 @@ public class Pengirim {
             while(true){
                 pesan = JOptionPane.showInputDialog("Masukkan Pesan");
                 tujuan = JOptionPane.showInputDialog("Masukkan IP Tujuan");
-                temp1 = JOptionPane.showInputDialog("Set Maksimal Hop");
+                temp1 = JOptionPane.showInputDialog("Atur Maksimal Hop");
                 
                 max_hop = Integer.parseInt(temp1);
                 
-                Message message = new Message(0, pesan, my_ip, tujuan, 0, max_hop, "2017/06/9 04:49:20", 40.366633, 74.640832);
+                Message message = new Message(0, pesan, my_ip, tujuan, 0, max_hop, "2019/12/31 16:00:00", 40.366633, 74.640832);
                 
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 ObjectOutputStream os = new ObjectOutputStream(baos);
@@ -48,8 +48,8 @@ public class Pengirim {
 
                 //Send data
                 s.send(new DatagramPacket(data, data.length, group, multiCastPort));
-                System.out.println("Broadcast message : " + "'"  + pesan + "'" + " to " + tujuan +" with max hop = "+max_hop);
-                flag = JOptionPane.showInputDialog("Continue?(Y/N)");
+                System.out.println("Pesan : " + "'"  + pesan + "'" + " untuk " + tujuan +" , hop maksimal = "+max_hop);
+                flag = JOptionPane.showInputDialog("Lanjutkan?(Y/N)");
                 {
                     flag2 = flag.charAt(0);
                     if((flag2 != 'Y') && (flag2 != 'y'))

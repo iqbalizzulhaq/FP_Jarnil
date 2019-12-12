@@ -35,6 +35,7 @@ public class LocationDistance {
     }
 
     // return string representation of this point
+ 
     public String toString() {
         return name + " (" + latitude2 + ", " + longitude2 + ")";
     }

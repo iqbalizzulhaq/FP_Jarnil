@@ -100,9 +100,9 @@
         }
 
         public String toString() {
-            return "Id:" + getId() + " | Message: " + getMessage() + " | Source: " + getSource() 
-                    +" | Destination: " + getDestination() + " | Current Hop: "+getHop() + " | Max Hop: "+getMaxHop()
-                    +" | Expired: " + getTime() + " | Latitude: " + getLatitude()
+            return "Id:" + getId() + " | Pesan: " + getMessage() + " | Asal: " + getSource() 
+                    +" | Tujuan: " + getDestination() + " | Hop sekarang: "+getHop() + " | Hop max: "+getMaxHop()
+                    +" | Kadaluwarsa: " + getTime() + " | Latitude: " + getLatitude()
                     + " | Longitude: " + getLongitude();
         }
     }
